@@ -1,0 +1,45 @@
+:root {
+    --color-gray: hsl(180, 10%, 85%);
+}
+
+* {
+
+}
+
+body {
+	margin: 0;
+	padding: 0;
+    height: 100vh;
+    display: grid;
+    grid-template: 125px 1fr / 1fr;
+}
+
+header {
+    background-color: var(--color-gray);
+    display: grid;
+    place-items: center;
+}
+
+main {
+    display: grid;
+    place-items: center;
+}
+
+ul {
+    display: grid;
+    grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+    gap: 0.5em;
+}
+
+li {
+    --size: 3em;
+    height: var(--size);
+    width: var(--size);
+    font-size: var(--size);
+    background-color: var(--color-gray);
+    border-radius: 2px;
+    box-sizing:border-box;
+    list-style: none;
+    display: grid;
+    place-items: center;
+}
