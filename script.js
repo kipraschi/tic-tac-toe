@@ -1,18 +1,22 @@
 // const game = (function () {
 
-const PlayerFactory = function (myName, myMark) {
+const NewPlayer = function (myName, myMark) {
 	const name = () => myName;
 	const mark = () => myMark;
 	return {name, mark};
 };
 
-const p1 = PlayerFactory("Tim", "X");
-const p2 = PlayerFactory("Bob", "0");
+const p1 = NewPlayer("Tim", "X");
+const p2 = NewPlayer("Bob", "0");
 
 const gameBoard = (function () {
-	const _render = function () {};
+    var gameboard = [];
+    return {gameboard}
 })();
 
-const displayController = (function () {})();
+const displayController = (function () {
+	const _render = () => {};
+    const _bindEvents = () => {};
+})();
 
 // })();
