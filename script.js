@@ -2,7 +2,10 @@
 const NewPlayer = function (myName, myMark) {
 	const name = () => myName;
 	const mark = () => myMark;
-	const makeMove = () => {}; //spits out an index where their mark should go?
+	const makeMove = (index) => {
+       gameBoard.gameboard[index] = mark();
+       displayController.render();
+    };
 	return {name, mark, makeMove};
 };
 
@@ -15,7 +18,7 @@ const gameBoard = (function () {
 })();
 
 const displayController = (function (board) {
-	const _render = () => {
+	const render = () => {
         document.querySelector("ul").remove();
 		const grid = document.createElement("ul");
 		board.forEach((mark) => {
@@ -25,9 +28,10 @@ const displayController = (function (board) {
 		});
         document.querySelector(".grid-container").appendChild(grid);
 	};
-	const _bindEvents = () => {};
+	const bindEvents = () => {};
 
-    return {_render};
+    return {render};
+
 })(gameBoard.gameboard);
 
 // })();
