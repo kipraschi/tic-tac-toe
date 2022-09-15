@@ -1,37 +1,52 @@
-// const Game = (function () {
-const NewPlayer = function (myName, myMark) {
-	const name = () => myName;
-	const mark = () => myMark;
-	const makeMove = (index) => {
-       gameBoard.gameboard[index] = mark();
-       displayController.render();
-    };
-	return {name, mark, makeMove};
-};
+const Game = (function () {
 
-const p1 = NewPlayer("Tim", "X");
-const p2 = NewPlayer("Bob", "0");
-
-const gameBoard = (function () {
-	var gameboard = ["X", "0", "X", "X", "X", "0", "0", "X", "0"];
-	return {gameboard};
-})();
-
-const displayController = (function (board) {
-	const render = () => {
-        document.querySelector("ul").remove();
-		const grid = document.createElement("ul");
-		board.forEach((mark) => {
-            let box = document.createElement("li");
-            box.textContent = `${mark}`;
-			grid.appendChild(box);
-		});
-        document.querySelector(".grid-container").appendChild(grid);
+	const NewPlayer = function (myName, myMark) {
+		const name = () => myName;
+		const mark = () => myMark;
+		const makeMove = (index) => {
+			if (!Gameboard.gameboard[index]) Gameboard.gameboard[index] = mark();
+		};
+		return {name, mark, makeMove};
 	};
-	const bindEvents = () => {};
 
-    return {render};
+	const p1 = NewPlayer("Tim", "X");
+	const p2 = NewPlayer("Bob", "0");
+	let turn = 1;
 
-})(gameBoard.gameboard);
+	const switchPlayer = function () {
+		if (turn % 2 == 0) currentPlayer = p1;
+		else currentPlayer = p2;
+		turn++;
+		return currentPlayer;
+	};
 
-// })();
+	const Gameboard = (function () {
+		var gameboard = ["", "", "", "", "", "", "", "", ""];
+		return {gameboard};
+	})();
+
+	const DisplayController = (function (board) {
+		const _bindEvents = (tile, index) => {
+			tile.addEventListener("click", () => {
+				switchPlayer().makeMove(index);
+				_render();
+			});
+		};
+
+		const _render = function () {
+			document.querySelector("ul").remove();
+
+			const grid = document.createElement("ul");
+
+			board.forEach((mark, index) => {
+				let tile = document.createElement("li");
+				tile.textContent = `${mark}`;
+				_bindEvents(tile, index);
+				grid.appendChild(tile);
+			});
+			document.querySelector(".grid-container").appendChild(grid);
+		};
+
+		_render();
+	})(Gameboard.gameboard);
+})();
