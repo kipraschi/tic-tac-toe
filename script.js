@@ -17,32 +17,53 @@ const Game = (function () {
 	})();
 
 	const DisplayController = (function () {
-		const _bindEvents = (tile, index) => {
-			tile.addEventListener("click", () => {
-				switchPlayer().makeMove(index);
-				_render();
-			});
+		const _bindEvents = {
+			start: () => {
+                const button = document.querySelector(".start");
+                button.addEventListener("click", () => {
+                    start(document.querySelector("#nameX").value, 
+                    document.querySelector("#name0").value);
+                    _render();
+                });
+            },
+			tiles: (tile, index) =>
+				tile.addEventListener("click", () => {
+					switchPlayer().makeMove(index);
+					_render();
+				}),
 		};
 
 		const _render = function () {
-			document.querySelector("ul").remove();
-			const grid = document.createElement("ul");
+			document.querySelector(".grid").remove();
+			const grid = document.createElement("div");
+			grid.classList.add("grid");
 
-			Gameboard.gameboard.forEach((mark, index) => {
-				let tile = document.createElement("li");
-				tile.textContent = `${mark}`;
-				_bindEvents(tile, index);
+			Gameboard.gameboard.forEach((playerMark, index) => {
+				let tile = document.createElement("div");
+				tile.classList.add("tile");
+				_bindEvents.tiles(tile, index);
+				let mark = document.createElement("p");
+				mark.textContent = `${playerMark}`;
+				tile.appendChild(mark);
 				grid.appendChild(tile);
 			});
 			document.querySelector(".grid-container").appendChild(grid);
 		};
 
-		_render();
+        _bindEvents.start();
 	})();
 
-	const p1 = NewPlayer("Tim", "X");
-	const p2 = NewPlayer("Bob", "0");
+	const p1 = NewPlayer("Name X", "X");
+	const p2 = NewPlayer("Name 0", "0");
 	let turn = 1;
+
+    function start(nameX, name0) {
+        //initialise game:
+        //turn set to 1
+        //names are no longer fields but divs
+        console.log(`${nameX} plays with X`);
+        console.log(`${name0} plays with 0`);
+    }
 
 	function switchPlayer() {
 		if (turn % 2) currentPlayer = p1;

@@ -60,6 +60,27 @@ input:focus {
 	outline: none;
 }
 
+.grid-container {
+	display: grid;
+	justify-items: center;
+	gap: 2em;
+}
+
+button {
+	padding: 1em 2em;
+	font-size: 1.5em;
+	border-radius: 10px;
+	border: 0;
+	background-color: hsl(0, 59%, 41%);
+	color: white;
+}
+
+button:hover {
+	background-color: hsl(0, 49%, 51%);
+	cursor: pointer;
+	transition: 0.2s;
+}
+
 .grid {
 	margin: 0;
 	padding: 0;
@@ -86,7 +107,7 @@ input:focus {
 	position: relative;
 }
 
-.tile:hover:not(.won) {
+.tile:hover:not(.init) {
 	cursor: pointer;
 	background-color: var(--color-gray-light);
 }
@@ -118,5 +139,9 @@ input:focus {
 	.container0 {
 		grid-column: 2 / 3;
 		grid-row: 1 / 2;
+	}
+	button {
+		padding: 1em 1.5em;
+		font-size: 1em;
 	}
 }
