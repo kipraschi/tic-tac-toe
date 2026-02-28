@@ -7,12 +7,8 @@ class Game
     end
     
     def print_board()
-        @board.each_with_index do |cell, index| 
-          if (index + 1) % @board_size == 0
-            print " #{cell} \n"
-          else
-            print " #{cell} |" 
-          end
+       @board.each_slice(@board_size) do |row|
+          puts row.join(' | ')
         end
     end
     
