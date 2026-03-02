@@ -7,12 +7,17 @@ class Game
     @board = Board.new(3, '□') # parameters need to be passed from initialization
     @player_X = Player.new("X")
     @player_O = Player.new("O")
+    @players = [@player_X, @player_O]
   end
 
-  def take_turn(player)
-    selection = player.select_cell
-    @board.update(selection, player.mark)
+  def play_round
     @board.print
+    @players.each do |player|
+      call(player)
+      selection = player.select_cell
+      @board.update(selection, player.mark)
+      @board.print
+    end
   end
 
   def is_over
@@ -24,9 +29,14 @@ class Game
 
   def play
     until is_over
-      @board.print
-      take_turn(@player_X)
-      take_turn(@player_O)
+      play_round
+    end
+  end
+
+  def call(player)
+    case player
+    when @player_X then puts "Player X, take your turn!"
+    when @player_O then puts "Player O, it's your turn!"
     end
   end
 
