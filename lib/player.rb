@@ -19,5 +19,5 @@ class Player
     end
     cell_selected - 1
   end
-  
+
 end

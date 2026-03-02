@@ -1,32 +1,33 @@
+require_relative 'player'
+require_relative 'board'
+
 class Game
-    def initialize
-        @board_size = 3 # needs to scale
-        @empty_marker = '□'
-        @board = Array.new(@board_size ** 2)
-        make_board
-    end
-    
-    def print_board()
-       @board.each_slice(@board_size) do |row|
-          puts row.join(' | ')
-        end
-    end
-    
-    def update_board(index, symbol)
-        @board[index] = symbol
-    end
 
-    def is_over
-      if false # define win/draw to trigger game over
-        @over = true
-      else false
-      end
-    end
+  def initialize
+    @board = Board.new(3, '□') # parameters need to be passed from initialization
+    @player_X = Player.new("X")
+    @player_O = Player.new("O")
+  end
 
-    private
+  def take_turn(player)
+    selection = player.select_cell
+    @board.update(selection, player.mark)
+    @board.print
+  end
 
-    def make_board
-        @board.fill {|cell| cell = @empty_marker}
+  def is_over
+    if false # define win/draw to trigger game over
+      @over = true
+    else false
     end
+  end
+
+  def play
+    until is_over
+      @board.print
+      take_turn(@player_X)
+      take_turn(@player_O)
+    end
+  end
 
 end
