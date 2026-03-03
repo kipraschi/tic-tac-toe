@@ -8,15 +8,15 @@ class Game
     @player_X = Player.new("X")
     @player_O = Player.new("O")
     @players = [@player_X, @player_O]
+    @winner = nil
   end
 
   def play_round
     @players.each do |player|
-      @board.draw
       call(player)
       begin
         selection = player.select_cell
-        raise "Cell taken" unless @board.cell_empty(selection) 
+        raise "Cell taken" unless @board.cell_empty?(selection) 
       rescue
         @board.draw
         puts "Cell number #{selection + 1} is taken!"
@@ -24,20 +24,36 @@ class Game
         retry
       end
       @board.update(selection, player.mark)
+      @board.draw
+      if game_over?
+        @winner = player if @board.crossed?
+        break
+      end
     end
   end
 
-  def game_over
-    if false # define win/draw to trigger game over
-      @over = true
-    else false
-    end
+  def game_over?
+    @board.solved? || @board.crossed?
   end
 
   def play
-    until game_over
+    @board.draw
+    until game_over?
       play_round
     end
+    end_game
+  end
+
+  def end_game
+    case @winner
+    when @player_X
+      puts "Player X wins!"
+    when @player_O
+      puts "Player O wins!"
+    else
+      puts "It's a tie!"
+    end
+    
   end
 
   def call(player)
