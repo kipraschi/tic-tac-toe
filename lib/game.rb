@@ -13,7 +13,7 @@ class Game
 
   def play_round
     @players.each do |player|
-      call(player)
+      prompt(player)
       begin
         selection = player.select_cell
         raise "Cell taken" unless @board.cell_empty?(selection) 
@@ -26,14 +26,14 @@ class Game
       @board.update(selection, player.mark)
       @board.draw
       if game_over?
-        @winner = player if @board.crossed?
+        @winner = player if @board.has_winning_line?
         break
       end
     end
   end
 
   def game_over?
-    @board.solved? || @board.crossed?
+    @board.full? || @board.has_winning_line?
   end
 
   def play
@@ -56,7 +56,7 @@ class Game
     
   end
 
-  def call(player)
+  def prompt(player)
     case player
     when @player_X 
       puts "Player X, take your turn!"

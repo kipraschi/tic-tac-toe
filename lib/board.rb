@@ -22,11 +22,11 @@ class Board
     @board[index] == @empty_marker
   end
 
-  def solved?
+  def full?
     @board.none? { |cell| cell == @empty_marker }
   end
 
-  def crossed?
+  def has_winning_line?
     diagonal = Array.new(2) { [] }
     rows = @board.each_slice(@board_size).to_a
     columns = rows.transpose
