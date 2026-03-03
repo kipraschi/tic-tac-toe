@@ -2,11 +2,10 @@ require_relative 'player'
 require_relative 'board'
 
 class Game
-
   def initialize(board_size = 3, empty_marker = '□')
     @board = Board.new(board_size, empty_marker)
-    @player_X = Player.new("X")
-    @player_O = Player.new("O")
+    @player_X = Player.new('X')
+    @player_O = Player.new('O')
     @players = [@player_X, @player_O]
     @winner = nil
   end
@@ -16,8 +15,8 @@ class Game
       prompt(player)
       begin
         selection = player.select_cell
-        raise "Cell taken" unless @board.cell_empty?(selection) 
-      rescue
+        raise 'Cell taken' unless @board.cell_empty?(selection)
+      rescue StandardError
         @board.draw
         puts "Cell number #{selection + 1} is taken!"
         print "Choose another number [1 to 9] to place your #{player.mark}: "
@@ -38,32 +37,28 @@ class Game
 
   def play
     @board.draw
-    until game_over?
-      play_round
-    end
+    play_round until game_over?
     end_game
   end
 
   def end_game
     case @winner
     when @player_X
-      puts "Player X wins!"
+      puts 'Player X wins!'
     when @player_O
-      puts "Player O wins!"
+      puts 'Player O wins!'
     else
       puts "It's a tie!"
     end
-    
   end
 
   def prompt(player)
     case player
-    when @player_X 
-      puts "Player X, take your turn!"
-    when @player_O 
+    when @player_X
+      puts 'Player X, take your turn!'
+    when @player_O
       puts "Player O, it's your turn!"
     end
-    print "Enter a number 1 to 9 to place your mark: "
+    print 'Enter a number 1 to 9 to place your mark: '
   end
-
 end
