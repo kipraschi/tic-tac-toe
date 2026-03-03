@@ -24,10 +24,7 @@ class Board
   end
 
   def solved?
-    if @board.none? { |cell| cell == @empty_marker }
-      puts "solved"
-      return true
-    end
+    @board.none? { |cell| cell == @empty_marker }
   end
 
   def crossed?
