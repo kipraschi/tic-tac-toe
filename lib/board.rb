@@ -19,13 +19,40 @@ class Board
     @board[index] = symbol
   end
 
-  def cell_empty(index)
+  def cell_empty?(index)
     @board[index] == @empty_marker
   end
 
+  def solved?
+    if @board.none? { |cell| cell == @empty_marker }
+      puts "solved"
+      return true
+    end
+  end
+
+  def crossed?
+    diagonal = Array.new(2) { [] }
+    rows = @board.each_slice(@board_size).to_a
+    columns = rows.transpose
+    
+    @board.each_slice(@board_size).with_index do |row, i|
+      diagonal[0].push(row[i])
+      diagonal[1].push(row[row.length - 1 - i])
+    end
+    
+    lines = diagonal + rows + columns
+
+    lines.any?{ |line| uniform?(line) }
+  end
+  
   private
+
+  def uniform?(array)
+    array.uniq.size == 1 && !array.include?(@empty_marker)
+  end
 
   def make
     @board.fill {|cell| cell = @empty_marker}
   end
+  
 end
