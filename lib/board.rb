@@ -1,10 +1,9 @@
 class Board
 
-  def initialize(board_size = 3, empty_marker = '□') # needs to scale
+  def initialize(board_size, empty_marker)
     @empty_marker = empty_marker
     @board_size = board_size
-    @board = Array.new(@board_size ** 2) 
-    make #might be redundant
+    @board = Array.new(@board_size ** 2) {|cell| cell = @empty_marker}
   end
 
   def draw
@@ -46,10 +45,6 @@ class Board
 
   def uniform?(array)
     array.uniq.size == 1 && !array.include?(@empty_marker)
-  end
-
-  def make
-    @board.fill {|cell| cell = @empty_marker}
   end
   
 end

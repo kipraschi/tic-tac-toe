@@ -3,8 +3,8 @@ require_relative 'board'
 
 class Game
 
-  def initialize
-    @board = Board.new # parameters need to be passed from initialization
+  def initialize(board_size = 3, empty_marker = '□')
+    @board = Board.new(board_size, empty_marker)
     @player_X = Player.new("X")
     @player_O = Player.new("O")
     @players = [@player_X, @player_O]
