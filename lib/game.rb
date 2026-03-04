@@ -9,7 +9,15 @@ class Game
     @players = [@player_X, @player_O]
     @winner = nil
   end
+  
+  def play
+    @board.draw
+    play_round until game_over?
+    end_game
+  end
 
+  private
+  
   def play_round
     @players.each do |player|
       prompt(player)
@@ -35,30 +43,16 @@ class Game
     @board.full? || @board.winning_line?
   end
 
-  def play
-    @board.draw
-    play_round until game_over?
-    end_game
-  end
-
   def end_game
-    case @winner
-    when @player_X
-      puts 'Player X wins!'
-    when @player_O
-      puts 'Player O wins!'
+    unless @winner.nil?
+      puts "Player #{@winner.mark} wins!"
     else
       puts "It's a tie!"
     end
   end
 
   def prompt(player)
-    case player
-    when @player_X
-      puts 'Player X, take your turn!'
-    when @player_O
-      puts "Player O, it's your turn!"
-    end
+    puts "Player #{player.mark}, it's your turn!"
     print 'Enter a number 1 to 9 to place your mark: '
   end
 end
