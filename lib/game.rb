@@ -25,14 +25,14 @@ class Game
       @board.update(selection, player.mark)
       @board.draw
       if game_over?
-        @winner = player if @board.has_winning_line?
+        @winner = player if @board.winning_line?
         break
       end
     end
   end
 
   def game_over?
-    @board.full? || @board.has_winning_line?
+    @board.full? || @board.winning_line?
   end
 
   def play
