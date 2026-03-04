@@ -2,7 +2,7 @@ class Board
   def initialize(board_size, empty_marker)
     @empty_marker = empty_marker
     @board_size = board_size
-    @board = Array.new(@board_size**2) { |cell| cell = @empty_marker }
+    @board = Array.new(@board_size**2) { @empty_marker }
   end
 
   def draw
