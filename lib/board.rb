@@ -1,5 +1,5 @@
 class Board
-  def initialize(board_size, empty_marker)
+  def initialize(board_size = 3, empty_marker = '□')
     @empty_marker = empty_marker
     @board_size = board_size
     @board = Array.new(@board_size**2) { @empty_marker }
