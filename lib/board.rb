@@ -1,4 +1,6 @@
 class Board
+  attr_reader :board
+  
   def initialize(board_size = 3, empty_marker = '□')
     @empty_marker = empty_marker
     @board_size = board_size
