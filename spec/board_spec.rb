@@ -49,6 +49,7 @@ RSpec.describe Board do
         expect(board.winning_line?).to be true
       end
     end
+
     context 'when the board has a column winner' do
       it 'returns true' do
         column_three_indexes = [2, 5, 8]
@@ -56,6 +57,7 @@ RSpec.describe Board do
         expect(board.winning_line?).to be true
       end
     end
+    
     context 'when the board has a diagonal winner' do
       it 'returns true for the first diagonal' do
         diagonal_one_indexes = [0, 4, 8]
@@ -69,17 +71,19 @@ RSpec.describe Board do
         expect(board.winning_line?).to be true
       end
     end
-  end
+
     context 'when the board has no winner' do
       it 'returns false for a row with mixed symbols' do
         row = [0, 1, 2]
         row.each { |i| board.update(i, i.even? ? 'O': 'X') }
         expect(board.winning_line?).to be false
       end
+
       it 'returns false for a partially filled column' do
         column = [1, 4]
         column.each { |i| board.update(i, i.even? ? 'O': 'X') }
         expect(board.winning_line?).to be false
       end
     end
+  end
 end
